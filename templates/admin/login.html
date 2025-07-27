@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Login</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='login.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    />
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="max-width">
+        <div class="logoA">
+          <a href="#">Admin<span> Panel</span></a>
+        </div>
+      </div>
+    </nav>
+
+    <section class="login-section">
+      <div class="login-box">
+        <h2>Admin Login</h2>
+        <form action="{{ url_for('admin_login') }}" method="POST">
+          <div class="field">
+            <label for="username">Username</label>
+            <input
+              type="text"
+              name="username"
+              id="username"
+              placeholder="Enter Username"
+              required
+            />
+          </div>
+          <div class="field">
+            <label for="password">Password</label>
+            <input
+              type="password"
+              name="password"
+              id="password"
+              placeholder="Enter Password"
+              required
+            />
+          </div>
+          <div class="button-area">
+            <button type="submit">Login</button>
+          </div>
+        </form>
+      </div>
+    </section>
+  </body>
+</html>

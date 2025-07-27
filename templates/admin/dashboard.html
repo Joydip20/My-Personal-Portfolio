@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Control Panel</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='dashboard.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    />
+  </head>
+  <body>
+    <header class="admin-navbar sticky-bar">
+      <div class="wrapper">
+        <div class="brand">
+          <a href="#">Control<span>Panel</span></a>
+        </div>
+        <ul class="nav-links">
+          <li>
+            <a href="{{ url_for('admin_dashboard') }}">Dashboard</a>
+          </li>
+          {% if session.get('user') %}
+          <li><a href="{{ url_for('logout') }}">Logout</a></li>
+          {% endif %}
+        </ul>
+      </div>
+    </header>
+
+    <main>
+      <!-- Skills Manager -->
+      <section class="panel-section">
+        <h2>Skills Tracker</h2>
+        <form method="POST" action="{{ url_for('add_skill') }}" class="panel-form">
+          <input type="text" name="name" placeholder="Skill (e.g. Python)" required />
+          <input type="text" name="proficiency" placeholder="Level (e.g. 85%)" required />
+          <button type="submit">Save Skill</button>
+        </form>
+        <ul class="panel-list">
+          {% for skill in skills %}
+          <li>
+            <b>{{ skill.name }}</b>: {{ skill.proficiency }}
+            <a href="{{ url_for('delete_skill', id=skill.id) }}">🗑 Delete</a>
+          </li>
+          {% endfor %}
+        </ul>
+      </section>
+
+      <!-- Experience Manager -->
+      <section class="panel-section">
+        <h2>Work Experience</h2>
+        <form method="POST" action="{{ url_for('add_experience') }}" class="panel-form">
+          <input type="text" name="title" placeholder="Job Title" required />
+          <input type="text" name="company" placeholder="Company Name" required />
+          <input type="text" name="duration" placeholder="Duration (e.g. 2022 - Present)" required />
+          <textarea name="details" placeholder="What did you do?" required></textarea>
+          <button type="submit">Add Experience</button>
+        </form>
+        <ul class="panel-list">
+          {% for exp in experiences %}
+          <li>
+            <b>{{ exp.title }}</b> at <em>{{ exp.company }}</em> ({{ exp.duration }})<br />
+            {{ exp.details }}
+            <a href="{{ url_for('delete_experience', id=exp.id) }}">🗑 Delete</a>
+          </li>
+          {% endfor %}
+        </ul>
+      </section>
+
+      <!-- Education Section -->
+      <section class="panel-section">
+        <h2>Academics</h2>
+        <form method="POST" action="{{ url_for('add_education') }}" class="panel-form">
+          <input type="text" name="institution" placeholder="Institution Name" required />
+          <input type="text" name="degree" placeholder="Degree (e.g. B.Tech)" required />
+          <input type="text" name="year" placeholder="Year (e.g. 2025)" required />
+          <input type="number" name="percentage/cgpa" step="0.01" min="0" max="100" placeholder="CGPA / Percentage" />
+          <button type="submit">Save Education</button>
+        </form>
+        <ul class="panel-list">
+          {% for edu in educations %}
+          <li>
+            <b>{{ edu.degree }}</b> - {{ edu.institution }} ({{ edu.year }})
+            <a href="{{ url_for('delete_education', id=edu.id) }}">🗑 Delete</a>
+          </li>
+          {% endfor %}
+        </ul>
+      </section>
+
+      <!-- Projects Section -->
+      <section class="panel-section">
+        <h2>Project Showcase</h2>
+        <form action="{{ url_for('admin_dashboard') }}" method="POST" class="panel-form">
+          <input type="text" name="title" placeholder="Project Title" required />
+          <textarea name="description" placeholder="Project Details" required></textarea>
+          <input type="text" name="github_link" placeholder="GitHub Link (optional)" />
+          <button type="submit">Add Project</button>
+        </form>
+        <ul class="panel-list">
+          {% for project in projects %}
+          <li>
+            <b>{{ project.title }}</b><br />
+            {{ project.description }}<br />
+            {% if project.github_link %}
+            <a href="{{ project.github_link }}" target="_blank">🔗 GitHub</a>
+            {% endif %}
+          </li>
+          {% endfor %}
+        </ul>
+      </section>
+    </main>
+  </body>
+</html>
