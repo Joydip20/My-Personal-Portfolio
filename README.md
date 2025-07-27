@@ -71,4 +71,4 @@ A full-stack portfolio website built using **Flask** and **SQLite**, featuring a
 
 ## 🧑‍💻 Author
 
-**Joydip Karmakar** – [LinkedIn](https://www.linkedin.com/in/joydip-karmakar20) | [GitHub](https://github.com/joydip20)
+**Joydip Karmakar** – [LinkedIn](https://www.linkedin.com/in/joydip-karmakar20) | [GitHub](https://github.com/Joydip20)
